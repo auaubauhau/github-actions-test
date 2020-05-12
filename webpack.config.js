@@ -15,16 +15,13 @@ module.exports = {
         contentBase: path.join(__dirname, 'src/public'),
         compress: true,
         port: 4444,
-        disableHostCheck: true,
-        proxy: {
-            "**": "http://localhost:3000"
-        }
+        disableHostCheck: true
     },
     output: {
         path: path.resolve(__dirname, 'docs'),
         filename: '[name].[chunkhash].js'
     },
-    plugins:[
+    plugins: [
         new webpack.ProgressPlugin(),
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
@@ -34,11 +31,20 @@ module.exports = {
         })
     ],
     module: {
-        rules: [{
-            test: /\.tsx?$/,
-            use: [{loader: 'ts-loader'}],
-            exclude: [/node_modules/]
-        }]
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: [{loader: 'ts-loader'}],
+                exclude: [/node_modules/]
+            },
+            {
+                test: /\.md$/,
+                use: [
+                    {loader: "html-loader"},
+                    {loader: 'markdown-loader'}
+                ]
+            }
+        ]
     },
     resolve: {
         alias: {
