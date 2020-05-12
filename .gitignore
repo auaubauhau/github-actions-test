@@ -118,3 +118,6 @@ dist
 
 # Intellij IDEA
 .idea
+
+#
+.docs
